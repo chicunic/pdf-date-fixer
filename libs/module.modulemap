@@ -1,0 +1,4 @@
+module PDFParser {
+    header "PDFParser.h"
+    export *
+}
