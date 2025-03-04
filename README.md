@@ -26,7 +26,7 @@ pdf-date-fixer/
 If you need to recompile `libPDFParser.a`, use the following command:
 
 ```sh
-swiftc -emit-library -static -target arm64-apple-macos12.0 -module-name PDFParser -o libs/libPDFParser.a libs/PDFParser.swift
+swiftc -emit-library -static -target arm64-apple-macos15.0 -module-name PDFParser -o libs/libPDFParser.a libs/PDFParser.swift -no-emit-module-separately
 ```
 
 ## Building and Running the Project

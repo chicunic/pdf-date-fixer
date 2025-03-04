@@ -16,7 +16,20 @@ public func parsePDF(_ filePath: UnsafePointer<CChar>) -> UnsafePointer<CChar>? 
         }
     }
 
-    // Convert to mutable pointer
+    if textContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        guard let ocrData = pdfDocument.dataRepresentation(options: [PDFDocumentWriteOption.saveTextFromOCROption: true]),
+              let ocrDocument = PDFDocument(data: ocrData) else {
+            return nil
+        }
+
+        textContent = ""
+        for pageIndex in 0..<ocrDocument.pageCount {
+            if let page = ocrDocument.page(at: pageIndex) {
+                textContent += page.string ?? ""
+            }
+        }
+    }
+
     let mutablePtr = strdup(textContent)
     return mutablePtr.map { UnsafePointer($0) }
 }
